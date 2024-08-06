@@ -6,7 +6,7 @@ package com.ameda.kisevu.client;
 *
 */
 
-import com.ameda.kisevu.DummyServiceGrpc;
+import com.ameda.kisevu.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -19,9 +19,24 @@ public class GreetingClient {
                 .usePlaintext()  // deactivates ssl during DEV
                 .build();
         System.out.println("Creating a stub.");
-        DummyServiceGrpc.DummyServiceBlockingStub syncClient =
-                DummyServiceGrpc.newBlockingStub(channel);
 
+        //created a greet service client (blocking - synchronous)
+        GreetServiceGrpc.GreetServiceBlockingStub greetClient =
+                GreetServiceGrpc.newBlockingStub(channel);
+        //created a protocol buffer greeting message
+        Greeting greeting = Greeting.newBuilder()
+                .setFirstName("Kevin")
+                .setLastName("Ameda")
+                .build();
+
+        //same for greet request
+        GreetRequest greetRequest = GreetRequest.newBuilder()
+                .setGreeting(greeting)
+                .build();
+
+        //call RPC and get back a GreetResponse (protocol buffers)
+        GreetResponse greetResponse  = greetClient.greet(greetRequest);
+        System.out.println(greetResponse.getResult());
         System.out.println("shutting down channel.");
         channel.shutdown();
     }
