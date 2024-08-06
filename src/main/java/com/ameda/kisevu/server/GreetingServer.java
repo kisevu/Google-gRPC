@@ -20,6 +20,7 @@ public class GreetingServer {
         System.out.println("Hello gRPC");
         Server server = ServerBuilder
                 .forPort(50051)
+                .addService(new GreetServiceImpl())
                 .build();
         server.start();
 
@@ -28,7 +29,6 @@ public class GreetingServer {
             server.shutdown();
             System.out.println("Successfully stopped the server.");
         } ));
-
         server.awaitTermination();
     }
 }
