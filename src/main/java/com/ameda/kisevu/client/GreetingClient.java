@@ -25,5 +25,10 @@ public class GreetingClient {
         System.out.println("shutting down channel.");
         channel.shutdown();
     }
+    //Unary RPC calls are basic request/response architecture common with REST
+    //Unary RPC calls are very well suited when your data is small.
+    // We should start with unary RPC calls when writing APIs and use streaming if
+    //performance is an issue.
+    //Unary RPC calls are defined using Protocol buffers
 
 }
