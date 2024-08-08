@@ -6,6 +6,7 @@ package com.ameda.kisevu.calculator.client;/*
 */
 
 import com.ameda.kisevu.calculator.CalculatorServiceGrpc;
+import com.ameda.kisevu.calculator.PrimeNumberDecompositionRequest;
 import com.ameda.kisevu.calculator.SumRequest;
 import com.ameda.kisevu.calculator.SumResponse;
 import io.grpc.ManagedChannel;
@@ -20,12 +21,23 @@ public class CalculatorClient {
                 .build();
         CalculatorServiceGrpc.CalculatorServiceBlockingStub calculatorClient =
                 CalculatorServiceGrpc.newBlockingStub(channel);
-        SumRequest request = SumRequest.newBuilder()
-                        .setFirstNumber(10)
-                                .setSecondNumber(30)
-                                        .build();
-        SumResponse response = calculatorClient.sum(request);
-        System.out.println(request.getFirstNumber()+" "+" "+ request.getSecondNumber()+" = "+response.getSumResult());
+        //Unary
+//        SumRequest request = SumRequest.newBuilder()
+//                        .setFirstNumber(10)
+//                                .setSecondNumber(30)
+//                                        .build();
+//        SumResponse response = calculatorClient.sum(request);
+//        System.out.println(request.getFirstNumber()+" "+" "+ request.getSecondNumber()+" = "+response.getSumResult());
+
+        //Streaming server
+        Long  number = 193941213L;
+        calculatorClient.primeNumberDecomposition(
+                PrimeNumberDecompositionRequest.newBuilder()
+                        .setNumber(number)
+                        .build()).
+                forEachRemaining(primeNumberDecompositionResponse -> {
+                    System.out.println(primeNumberDecompositionResponse.getPrimeFactor());
+                });
         channel.shutdown();
     }
 }
