@@ -6,14 +6,12 @@ package com.ameda.kisevu.server;
 *
 */
 
-import com.ameda.kisevu.GreetRequest;
-import com.ameda.kisevu.GreetResponse;
-import com.ameda.kisevu.GreetServiceGrpc;
-import com.ameda.kisevu.Greeting;
+import com.ameda.kisevu.*;
 import io.grpc.stub.StreamObserver;
 
 public class GreetServiceImpl extends GreetServiceGrpc.GreetServiceImplBase {
 
+    //unary
     @Override
     public void greet(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
         //extracted the fields we need.
