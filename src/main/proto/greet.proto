@@ -1,0 +1,32 @@
+syntax =  "proto3";
+package greet;
+
+option java_package="com.ameda.kisevu";
+option java_multiple_files=true;
+
+message  Greeting {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message  GreetRequest{
+  Greeting greeting = 1;
+}
+
+message GreetResponse{
+  string result = 1;
+}
+
+message LongGreetRequest{
+  Greeting greeting = 1;
+}
+
+message LongGreetResponse{
+  string result = 1;
+}
+
+
+service GreetService{
+  //client streaming
+  rpc LongGreet(stream  LongGreetRequest) returns (LongGreetResponse) {};
+}
