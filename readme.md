@@ -13,4 +13,4 @@ rcp UploadFile(stream FileChunk) returns (UploadResponse);
 In my use case, it will take MANY LongGreetRequest that contains a Greeting.
 It will return ONE LongGreetResponse that contains a result string.
 
-![Streaming data **Streaming Server RPC ](src/main/resources/static/SERVER_STREAMING_RPC.JPG)
+![Streaming data **Streaming Server RPC ](src/main/resources/static/CLIENT_STREAMING_RPC.JPG)
