@@ -1,16 +1,16 @@
-# SERVER STREAMING RPCs
+# CLIENT STREAMING RPCs
 ***********************
 ## overview of this API of the gRPC
 **************************************
 
-The Client sends a single request to the server and receives a stream of responses.  The server can send
-multiple messages back to the client over the same connection. 
-Enabled by HTTP/2.
+Client sends a stream of requests to the server and receives a single response.
+The server processes the stream of requests and responds once all requests are received.
+#### use case: Suitable for cases where the client needs to send multiple messages in a batch and then receive a single result,
+such as sending large amounts of data for processing. i.e A request to upload a file in chunks where the server processes the
+the entire file and send a confirmation once processing is complete.
+rcp UploadFile(stream FileChunk) returns (UploadResponse);
 
-use case: Useful for scenarios where the response is large or needs to be sent incrementally, 
-such as streaming logs or search results. i.e., 
-A request to receive a stream of updates or events related to a particular topic 
-
-** Syntax: rpc ListUserActivities(UserRequest) returns (stream UserActivity);
+In my use case, it will take MANY LongGreetRequest that contains a Greeting.
+It will return ONE LongGreetResponse that contains a result string.
 
 ![Streaming data **Streaming Server RPC ](src/main/resources/static/SERVER_STREAMING_RPC.JPG)
